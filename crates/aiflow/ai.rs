@@ -12,7 +12,10 @@ use openai_responses::{
     StreamError,
     types::{Input, Request},
 };
-use tokio::{sync::Mutex, task::JoinSet};
+use tokio::{
+    sync::{Mutex, OwnedMutexGuard},
+    task::JoinSet,
+};
 pub use tool::{Tool, ToolBuilder};
 
 use assert2::let_assert;
@@ -178,7 +181,7 @@ pub fn responses_stream(
     messages: &[Message],
     tools: tool::Set,
     config: Option<GenerateConfig>,
-) -> impl Stream<Item = anyhow::Result<Arc<Mutex<Message>>>> {
+) -> impl Stream<Item = anyhow::Result<OwnedMutexGuard<Message>>> {
     let config = config.unwrap_or_default();
 
     let openai = openai_responses::Client::from_env().expect("failed to create openai client");
@@ -203,7 +206,8 @@ pub fn responses_stream(
             role: message::Role::Assistant,
             parts: Vec::new(),
         }));
-        co.yield_(Ok(Arc::clone(&assistant_message))).await;
+        co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await))
+            .await;
 
         loop {
             let mut current_thread = thread.clone();
@@ -420,7 +424,7 @@ pub fn responses_stream(
                     }
                 }
 
-                co.yield_(Ok(Arc::clone(&assistant_message))).await;
+                co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
             }
 
             if tool_executions.is_empty() {
@@ -451,7 +455,7 @@ pub fn responses_stream(
                 drop(assistant_message);
             }
 
-            co.yield_(Ok(Arc::clone(&assistant_message))).await;
+            co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
 
             if assistant_message
                 .lock()
@@ -489,7 +493,7 @@ pub fn stream(
     messages: &[Message],
     tools: tool::Set,
     config: Option<GenerateConfig>,
-) -> impl Stream<Item = anyhow::Result<Arc<Mutex<Message>>>> {
+) -> impl Stream<Item = anyhow::Result<OwnedMutexGuard<Message>>> {
     let config = config.unwrap_or_default();
 
     let openai = async_openai::Client::new();
@@ -514,7 +518,7 @@ pub fn stream(
             role: message::Role::Assistant,
             parts: Vec::new(),
         }));
-        co.yield_(Ok(Arc::clone(&assistant_message))).await;
+        co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
 
         loop {
             let mut current_thread = thread.clone();
@@ -639,7 +643,7 @@ pub fn stream(
                         }
                     }
 
-                    co.yield_(Ok(Arc::clone(&assistant_message))).await;
+                    co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
                 }
 
                 if is_last_chunk {
@@ -714,7 +718,7 @@ pub fn stream(
                 drop(assistant_message);
             }
 
-            co.yield_(Ok(Arc::clone(&assistant_message))).await;
+            co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
 
             if assistant_message
                 .lock()
