@@ -424,7 +424,8 @@ pub fn responses_stream(
                     }
                 }
 
-                co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
+                co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await))
+                    .await;
             }
 
             if tool_executions.is_empty() {
@@ -455,7 +456,8 @@ pub fn responses_stream(
                 drop(assistant_message);
             }
 
-            co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
+            co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await))
+                .await;
 
             if assistant_message
                 .lock()
@@ -518,7 +520,8 @@ pub fn stream(
             role: message::Role::Assistant,
             parts: Vec::new(),
         }));
-        co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
+        co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await))
+            .await;
 
         loop {
             let mut current_thread = thread.clone();
@@ -643,7 +646,8 @@ pub fn stream(
                         }
                     }
 
-                    co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
+                    co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await))
+                        .await;
                 }
 
                 if is_last_chunk {
@@ -718,7 +722,8 @@ pub fn stream(
                 drop(assistant_message);
             }
 
-            co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await)).await;
+            co.yield_(Ok(Arc::clone(&assistant_message).lock_owned().await))
+                .await;
 
             if assistant_message
                 .lock()
