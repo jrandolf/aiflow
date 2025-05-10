@@ -1,8 +1,14 @@
 [package]
 name = "aiflow"
 version = "0.1.0"
+description = "Rust library for AI message streaming and tool integration."
+authors = ["Randolf C."]
+repository = "https://github.com/jrandolf/aiflow"
+categories = ["science"]
+keywords = ["llm", "ai", "openai"]
 edition.workspace = true
 license.workspace = true
+
 
 [lib]
 name = "ai"
