@@ -1,5 +1,10 @@
 # aiflow
 
+[![crates.io](https://img.shields.io/crates/v/aiflow?style=flat-square)](https://crates.io/crates/aiflow)
+[![license](https://img.shields.io/crates/l/aiflow?style=flat-square)](https://github.com/jrandolf/aiflow)
+[![ci](https://img.shields.io/github/actions/workflow/status/jrandolf/aiflow/ci.yaml?label=ci&style=flat-square)](https://github.com/jrandolf/aiflow/actions/workflows/ci.yaml)
+[![docs](https://img.shields.io/docsrs/aiflow?style=flat-square)](https://docs.rs/aiflow/latest/aiflow/)
+
 **aiflow** is a Rust library for AI message streaming and tool integration, designed for use with OpenAI-compatible models. It provides abstractions for managing conversations, tool calls, and message streaming, making it easy to build advanced AI-driven applications.
 
 ## Features
