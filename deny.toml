@@ -1,0 +1,28 @@
+[licenses]
+unused-allowed-license = "allow"
+allow = [
+    "0BSD",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "BSD-4-Clause",
+    "CC0-1.0",
+    "ISC",
+    "MIT-0",
+    "MIT",
+    "MS-PL",
+    "Unicode-DFS-2016",
+    "Unicode-3.0",
+    "Unlicense",
+    "Zlib",
+    "OpenSSL",
+    "LicenseRef-Internal",
+]
+
+[[licenses.clarify]]
+crate = "ring"
+expression = "OpenSSL"
+license-files = [{ path = "LICENSE", hash = 0xbd0eed23 }]
+
+[advisories]
+ignore = ["RUSTSEC-2023-0071"]

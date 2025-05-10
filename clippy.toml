@@ -1,0 +1,8 @@
+absolute-paths-max-segments = 3
+disallowed-types = [
+    { path = "std::collections::HashMap", reason = "use rustc_hash::FxHashMap" },
+    { path = "std::collections::HashSet", reason = "use rustc_hash::FxHashSet" },
+    { path = "std::collections::hash_map::RandomState", reason = "use BuildHasherDefault<rustc_hash::FxHasher>" },
+]
+arithmetic-side-effects-allowed = ["bigdecimal::BigDecimal"]
+doc-valid-idents = ["OpenAI"]

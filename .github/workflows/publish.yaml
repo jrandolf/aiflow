@@ -1,0 +1,17 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4.2.2
+      - name: Publish
+        run: |
+          cargo publish --locked --token ${{ secrets.CRATES_IO_TOKEN }} -p aiflow

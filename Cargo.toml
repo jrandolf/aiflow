@@ -1,0 +1,106 @@
+
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+license = "Apache-2.0"
+
+[workspace.lints.clippy]
+all = "deny"
+pedantic = "deny"
+restriction = "deny"
+nursery = "deny"
+# REASON: We disable them when they are not idiomatic.
+blanket_clippy_restriction_lints = { level = "allow", priority = 1 }
+# REAsON: Not idiomatic.
+implicit_return = { level = "allow", priority = 1 }
+# REASON: False-positives with macros.
+pub_use = { level = "allow", priority = 1 }
+# REASON: Incompatible with pattern_type_mismatch and other lints similar to it.
+ref_patterns = { level = "allow", priority = 1 }
+# REASON: Splitting is generally idiomatic.
+single_call_fn = { level = "allow", priority = 1 }
+# REASON: Some trait methods are meant to be not implemented.
+missing_trait_methods = { level = "allow", priority = 1 }
+# REASON: Not idiomatic.
+shadow_reuse = { level = "allow", priority = 1 }
+# REASON: Not idiomatic.
+shadow_same = { level = "allow", priority = 1 }
+# REASON: Sometimes code is really unreachable.
+unreachable = { level = "allow", priority = 1 }
+# REASON: Not idiomatic.
+question_mark_used = { level = "allow", priority = 1 }
+# REASON: This is a horrible idea. Related code should be placed near each other.
+arbitrary_source_item_ordering = { level = "allow", priority = 1 }
+# REASON: Separated suffixes are more readable.
+separated_literal_suffix = { level = "allow", priority = 1 }
+# REASON: Too general.
+as_conversions = { level = "allow", priority = 1 }
+# REASON: Not idiomatic.
+self-named-module-files = { level = "allow", priority = 1 }
+# REASON: Too noisy.
+missing_docs_in_private_items = { level = "allow", priority = 1 }
+# REASON: Too noisy.
+exhaustive_structs = { level = "allow", priority = 1 }
+# REASON: Too noisy.
+exhaustive_enums = { level = "allow", priority = 1 }
+# REASON: Expect may be used for error handling.
+expect_used = { level = "allow", priority = 1 }
+# REASON: Too noisy.
+module_name_repetitions = { level = "allow", priority = 1 }
+# REASON: Clashes with clippy::pattern_type_mismatch
+needless_borrowed_reference = { level = "allow", priority = 1 }
+# REASON: We develop with modern operating systems, so this is not a problem.
+non_ascii_literal = { level = "allow", priority = 1 }
+# REASON: This is idiomatic.
+pub_with_shorthand = { level = "allow", priority = 1 }
+# REASON: We use LTO, so this is not a problem.
+missing_inline_in_public_items = { level = "allow", priority = 1 }
+# REASON: We prefer to have semicolons inside blocks.
+semicolon_outside_block = { level = "allow", priority = 1 }
+# REASON: https://github.com/rust-lang/rust-clippy/issues/10780
+shadow_unrelated = { level = "allow", priority = 1 }
+# REASON: Developer's choice.
+iter_over_hash_type = { level = "allow", priority = 1 }
+# REASON: Requires developers to specify the reason for using BE/LE bytes.
+host_endian_bytes = { level = "allow", priority = 1 }
+# REASON: Idiomatic.
+renamed_function_params = { level = "allow", priority = 1 }
+# REASON: TODO: Enable this once the code has stabilized.
+too_many_lines = { level = "allow", priority = 1 }
+# REASON: Documentation is always good.
+too_long_first_doc_paragraph = { level = "allow", priority = 1 }
+# REASON: Panics are generally fine as long as they are documented. They behave like assertions.
+panic = { level = "allow", priority = 1 }
+# REASON: `select!` macro uses integer division remainder.
+integer_division_remainder_used = { level = "allow", priority = 1 }
+# REASON: `_` can cause problems with clippy::pattern_type_mismatch.
+ignored_unit_patterns = { level = "allow", priority = 1 }
+# REASON: We use `else if` without `else` in the `Endpoint` spec.
+else_if_without_else = { level = "allow", priority = 1 }
+# REASON: We use `redundant_closure_call` to implement async closures that return a `BoxFuture`.
+redundant_closure_call = { level = "allow", priority = 1 }
+
+[workspace.dependencies]
+# keep-sorted start block=yes
+anyhow = "1.0"
+assert2 = "0.3"
+async-openai = "0.28"
+bigdecimal = { version = "0.4", features = ["serde"] }
+derive_builder = "0.20"
+futures = "0.3"
+genawaiter = { version = "0.99", features = [
+    "futures03",
+], default-features = false }
+openai_responses = "0.1.6"
+repair_json = "0.1"
+reqwest-eventsource = "0.6"
+rustc-hash = "2"
+schemars = { version = "1.0.0-alpha.17", features = ["preserve_order"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
+uuid = { version = "1.14", features = ["v7", "v4", "serde"] }
+# keep-sorted end
