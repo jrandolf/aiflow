@@ -1,6 +1,6 @@
 [package]
 name = "aiflow"
-version = "0.2.0"
+version = "0.3.0"
 description = "Rust library for AI message streaming and tool integration."
 authors = ["Randolf C."]
 repository = "https://github.com/jrandolf/aiflow"
