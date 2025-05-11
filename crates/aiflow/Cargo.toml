@@ -11,8 +11,8 @@ license.workspace = true
 
 
 [lib]
-name = "ai"
-path = "ai.rs"
+name = "aiflow"
+path = "aiflow.rs"
 
 [dependencies]
 anyhow.workspace = true
